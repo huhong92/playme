@@ -1,0 +1,2 @@
+1|cmnet|4001|P,J,B,W,K,F,N,R|
+2|cmnet|4002|P,J,B,W,K,F,N,R|

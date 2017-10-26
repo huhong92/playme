@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file contains job definitions in schema version 2.0 format -->
+
+<job-scheduling-data xmlns="http://quartznet.sourceforge.net/JobSchedulingData" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+
+  <processing-directives>
+    <overwrite-existing-data>true</overwrite-existing-data>
+  </processing-directives>
+
+  <schedule>
+
+    <job>
+        <name>Count</name>
+        <group>CountGroup</group>
+        <description>统计游戏排名数据</description>
+        <job-type>PL_Analysis.CountJob, PL_Analysis</job-type>
+        <durable>true</durable>
+        <recover>false</recover>
+    </job>
+    <job>
+        <name>UpdateNickName</name>
+        <group>UpdateNickNameGroup</group>
+        <description>同步用户昵称</description>
+        <job-type>PL_Analysis.UpdateNickName, PL_Analysis</job-type>
+        <durable>true</durable>
+        <recover>false</recover>
+    </job>
+
+    <job>
+        <name>UpdateNoLoginPushToken</name>
+        <group>UpdateNoLoginPushTokenGroup</group>
+        <description>将未登入天数用户从通知中移除</description>
+        <job-type>PL_Analysis.UpdateNoLoginPushToken, PL_Analysis</job-type>
+        <durable>true</durable>
+        <recover>false</recover>
+    </job>
+
+    <job>
+        <name>PushMessage</name>
+        <group>PushMessageGroup</group>
+        <description>发送消息推送</description>
+        <job-type>PL_Analysis.PushMessage, PL_Analysis</job-type>
+        <durable>true</durable>
+        <recover>false</recover>
+    </job>
+
+
+
+    <trigger>
+     <cron>
+     <name>cronName</name>
+     <group>cronGroup</group>
+     <job-name>Count</job-name>
+     <job-group>CountGroup</job-group>
+     <!--start-time>1982-06-28T18:15:00+02:00</start-time-->
+     <!--秒 分 时 -->
+     <cron-expression>0 59 14 * * ?</cron-expression>
+    </cron>
+    </trigger>
+
+
+    <trigger>
+            <simple>
+            <name>UpdateNickNameTrigger</name>
+            <group>UpdateNickNameGroup</group>
+            <description>更新昵称job</description>
+            <job-name>UpdateNickName</job-name>
+            <job-group>UpdateNickNameGroup</job-group>
+            <misfire-instruction>SmartPolicy</misfire-instruction>
+            
+            <repeat-count>-1</repeat-count>
+            <!--毫秒 默认10分钟 600000-->
+            <repeat-interval>600000</repeat-interval>
+        </simple>
+    </trigger>
+
+    <trigger>
+     <cron>
+     <name>UpdateNoLoginPushTokenName</name>
+     <group>UpdateNoLoginPushTokenGroup</group>
+     <job-name>UpdateNoLoginPushToken</job-name>
+     <job-group>UpdateNoLoginPushTokenGroup</job-group>
+     <!--start-time>1982-06-28T18:15:00+02:00</start-time-->
+     <!--秒 分 时 -->
+     <cron-expression>0 54 14 * * ?</cron-expression>
+    </cron>
+    </trigger>
+
+
+    <trigger>
+            <simple>
+            <name>PushMessageTrigger</name>
+            <group>PushMessageGroup</group>
+            <description>发送推送</description>
+            <job-name>PushMessage</job-name>
+            <job-group>PushMessageGroup</job-group>
+            <misfire-instruction>SmartPolicy</misfire-instruction>
+            
+            <repeat-count>-1</repeat-count>
+            <!--毫秒 默认1分钟 60000-->
+            <repeat-interval>60000</repeat-interval>
+        </simple>
+    </trigger>
+
+  </schedule>
+</job-scheduling-data>

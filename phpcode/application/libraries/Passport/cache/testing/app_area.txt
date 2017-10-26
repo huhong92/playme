@@ -1,0 +1,10 @@
+1|cmnet|4001|P,J,B,W,K,F,N,R|
+2|cmnet|4002|P,J,B,W,K,F,N,R|
+3|cmnet|4003|P,J,W,K|
+4|cmnet|4004|P,J,W,K|
+21|cmnet|4005|P,J,W,K|
+22|cmnet|4006|P,J,W,K|
+23|cmnet|4007|P,J,W,K|
+24|cmnet|4008|P,J,W,K|
+25|cmnet|4009|P,J,W,K|
+26|cmnet|4010|P,J,W,K|
